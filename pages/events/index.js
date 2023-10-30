@@ -1,7 +1,7 @@
-const EventsPage = () => {
+const AllEventsPage = () => {
     return (
         <p>Events page</p>
     )
 } 
 
-export default EventsPage;
+export default AllEventsPage;
