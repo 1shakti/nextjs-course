@@ -26,7 +26,7 @@ function EventItem(props) {
 						<time>{humanReadableDate}</time>
 					</div>
 					<div className={classes.address}>
-                        <CiLocationOn />
+						<CiLocationOn />
 						<address>{formattedAddress}</address>
 					</div>
 				</div>
