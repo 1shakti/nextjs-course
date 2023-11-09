@@ -1,12 +1,17 @@
 import Link  from "next/link";
 import classes from "./link-button.module.css";
 
-function LinkButton(props){
-    return(
-        <Link href={props.link} className={classes.btn}>
+function Button(props){
+
+    if(props.link){
+      return <Link href={props.link} className={classes.btn}>
         {props.children}
         </Link>
+    }
+
+    return(
+        <button className={classes.btn} onClick={props.onClick}>{props.children}</button>
     )
 }
 
-export default LinkButton;
+export default Button;

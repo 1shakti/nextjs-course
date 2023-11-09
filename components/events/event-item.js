@@ -1,5 +1,5 @@
 import classes from "./event-item.module.css";
-import LinkButton from "../ui/link-button";
+import Button from "../ui/link-button";
 import { MdDateRange } from "react-icons/md";
 import { BsArrowRight } from "react-icons/bs";
 import { CiLocationOn } from "react-icons/ci";
@@ -31,12 +31,12 @@ function EventItem(props) {
 					</div>
 				</div>
 				<div className={classes.actions}>
-					<LinkButton link={exploreLink}>
+					<Button link={exploreLink}>
 						<span>Explore Event</span>
 						<span className={classes.icon}>
 							<BsArrowRight />
 						</span>
-					</LinkButton>
+					</Button>
 				</div>
 			</div>
 		</li>
