@@ -3,15 +3,67 @@ import ResultsTitle from "@/components/events/results-title";
 import ErrorAlert from "@/components/ui/error-alert";
 import Button from "@/components/ui/link-button";
 import { getFilteredEvents } from "@/dummy-data";
-import { useRouter } from "next/router";
 import { Fragment } from "react";
 
-const FilteredEventPage = () => {
-	const router = useRouter();
-	const filterData = router.query.slug;
-	if (!filterData) {
-		return <p className="center">Loading...</p>;
+const FilteredEventPage = (props) => {
+	// const router = useRouter();
+	// const filterData = router.query.slug;
+
+	// if (!filterData) {
+	// 	return <p className="center">Loading...</p>;
+	// }
+
+	// const filteredYear = filterData[0];
+	// const filteredMonth = filterData[1];
+
+	// const numYear = +filteredYear;
+	// const numMonth = +filteredMonth;
+
+	if (
+		props?.hasError
+	) {
+		return (
+			<Fragment>
+				<ErrorAlert>
+					<p>Invalid filter. Please adjust youtr values!</p>
+				</ErrorAlert>
+				<div className="center">
+					<Button link="/events">Show all events</Button>
+				</div>
+			</Fragment>
+		);
 	}
+
+	const filteredEvents = props.events;
+
+	if (!filteredEvents || filteredEvents.length === 0) {
+		return (
+			<Fragment>
+				<ErrorAlert>
+					<p>No Filtered Data Found.</p>
+				</ErrorAlert>
+				<div className="center">
+					<Button link="/events">Show All Events</Button>
+				</div>
+			</Fragment>
+		);
+	}
+
+	const date = new Date(props.date.year, props.date.month - 1);
+
+	return (
+		<Fragment>
+			<ResultsTitle date={date} />
+			<EventList items={filteredEvents} />
+		</Fragment>
+	);
+};
+
+export async function getServerSideProps(context){
+
+	const { params } = context;
+
+	const filterData = params.slug;
 
 	const filteredYear = filterData[0];
 	const filteredMonth = filterData[1];
@@ -27,16 +79,15 @@ const FilteredEventPage = () => {
 		numMonth < 1 ||
 		numMonth > 12
 	) {
-		return (
-			<Fragment>
-				<ErrorAlert>
-					<p>Invalid filter. Please adjust youtr values!</p>
-				</ErrorAlert>
-				<div className="center">
-					<Button link="/events">Show all events</Button>
-				</div>
-			</Fragment>
-		);
+		return{
+			props:{
+				hasError: true,
+				// notFound: true,
+				// redirect:{
+				// 	destination:"/error"
+				// }
+			}
+		}
 	}
 
 	const filteredEvents = getFilteredEvents({
@@ -44,27 +95,15 @@ const FilteredEventPage = () => {
 		month: numMonth,
 	});
 
-	if (!filteredEvents || filteredEvents.length === 0) {
-		return (
-			<Fragment>
-				<ErrorAlert>
-					<p>No Filtered Data Found.</p>
-				</ErrorAlert>
-				<div className="center">
-					<Button link="/events">Show All Events</Button>
-				</div>
-			</Fragment>
-		);
+	return{
+		props:{
+			events: filteredEvents,
+			date:{
+				year:numYear,
+				month: numMonth
+			}
+		}
 	}
-
-	const date = new Date(numYear, numMonth - 1);
-
-	return (
-		<Fragment>
-			<ResultsTitle date={date} />
-			<EventList items={filteredEvents} />
-		</Fragment>
-	);
-};
+}
 
 export default FilteredEventPage;
