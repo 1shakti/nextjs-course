@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import classes from "./newsletter-registration.module.css";
 
 export default function NewsletterRegistration() {

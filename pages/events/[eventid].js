@@ -1,6 +1,7 @@
 import EventContent from "@/components/event-detail/event-content";
 import EventLogistics from "@/components/event-detail/event-logistics";
 import EventSummary from "@/components/event-detail/event-summary";
+import Comments from "@/components/input/comments";
 import { getEventById, getFeaturedEvents } from "@/helpers/api-utils";
 import { Fragment } from "react";
 
@@ -23,6 +24,7 @@ const EventDetailPage = (props) => {
 			<EventContent>
 				<p>{event?.description}</p>
 			</EventContent>
+			<Comments eventId={event.id} />
 		</Fragment>
 	);
 };
@@ -48,7 +50,7 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
 	const events = await getFeaturedEvents();
-	const paths = events?.map((event) => ({ params: { eventId: event.id } }));
+    const paths = events?.map((event) => ({ params: { eventId: event.id } }));
 
     // fallback: 'blocking' it will give fully loaded data,
     // fallback: true will go to page and can show loading spinner,
