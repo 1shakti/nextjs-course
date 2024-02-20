@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import classes from "./new-comment.module.css";
+import NotificationContext from "@/context-api/notification-context";
 
 export default function NewComment(props) {
 
 	const [isInvalid, setIsInvalid] = useState(false);
+	const { notification } = useContext(NotificationContext);
 
 	const emailInputRef = useRef();
 	const nameInputRef = useRef();
@@ -51,7 +53,7 @@ export default function NewComment(props) {
 				</div>
 			</div>
 			{isInvalid && <p>Please enter a valid email address and comment!</p>}
-			<button className={classes.btn}>Submit</button>
+			{notification?.status === "pending" ? "Loading..." : <button className={classes.btn}>Submit</button>}
 		</form>
 	);
 }

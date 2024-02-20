@@ -2,7 +2,7 @@ import classes from "./comment-list.module.css";
 
 export default function CommentList(props) {
 	const { items } = props;
-    console.log("items",items);
+
 	return (
 		<ul className={classes.comments}>
 			{Array.isArray(items) && items?.map((item) => (
