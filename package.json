@@ -6,19 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "dev-test": "next dev"
+    "lint": "next lint"
   },
   "dependencies": {
-    "firebase": "^10.7.0",
-    "mongodb": "^6.3.0",
-    "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^4.11.0"
+    "next": "14.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
-    "eslint-config-next": "13.5.4"
+    "eslint": "^8",
+    "eslint-config-next": "14.0.0"
   }
 }
